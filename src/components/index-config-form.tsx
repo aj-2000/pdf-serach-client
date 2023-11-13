@@ -28,9 +28,9 @@ const formSchema = z.object({
   indexName: z.string().min(2, {
     message: "Index name must be at least 2 characters.",
   }),
-  mode: z
-    .union([z.literal("tfidf"), z.literal("lsi"), z.literal("doc2vec")])
-    .default("tfidf"),
+  mode: z.string({
+    required_error: "Please select a mode.",
+  }),
   updateIndex: z.boolean().default(false),
 });
 
@@ -39,7 +39,6 @@ export function IndexConfigForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       indexName: "index.pkl",
-      mode: "tfidf",
       updateIndex: false,
     },
   });
@@ -77,7 +76,10 @@ export function IndexConfigForm() {
             <FormItem>
               <FormLabel>Modes</FormLabel>
               <FormControl>
-                <Select {...field}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select Mode" />
                   </SelectTrigger>
