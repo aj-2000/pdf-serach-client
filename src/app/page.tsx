@@ -12,10 +12,10 @@ export default function Home() {
       </div>
       <Separator orientation="vertical" />
       <div className="grow">
-        <div>
+        <div className="h-[100px]">
           <Header />
         </div>
-        <div>
+        <div className="h-[calc(100vh-100px)] overflow-scroll">
           <Body />
         </div>
       </div>

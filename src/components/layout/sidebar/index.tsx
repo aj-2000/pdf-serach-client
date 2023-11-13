@@ -1,36 +1,10 @@
-import { title } from "process";
-import ModeInput from "./mode-input";
-import { Separator } from "@/components/ui/separator";
+import { IndexConfigForm } from "@/components/index-config-form";
 
 export default function Sidebar() {
   return (
-    <aside className="flex flex-col gap-4 px-2 py-4 h-full overflow-scroll items-center">
-      <Sidebar.Section title="Modes">
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-      </Sidebar.Section>
-
-      <Sidebar.Section title="Modes">
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-      </Sidebar.Section>
-
-      <Sidebar.Section title="Modes">
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-      </Sidebar.Section>
-
-      <Sidebar.Section title="Modes">
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
-        <ModeInput />
+    <aside className="flex flex-col gap-4 h-full overflow-scroll">
+      <Sidebar.Section title="Configure Index">
+        <IndexConfigForm />
       </Sidebar.Section>
     </aside>
   );
@@ -44,7 +18,7 @@ Sidebar.Section = ({
   title: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2 p-2">
+    <div className="flex flex-col gap-4 py-4 px-2">
       <span className="text-primary font-bold text-sm">{title}</span>
       <div className="flex flex-col gap-2 items-center"> {children}</div>
     </div>
