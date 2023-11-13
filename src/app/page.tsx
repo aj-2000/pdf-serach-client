@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 export default function Home() {
   return (
     <main className="flex flex-row gap-4 w-full h-screen">
-      <div className="w-[250px]">
+      <div className="w-[300px]">
         <Sidebar />
       </div>
       <Separator orientation="vertical" />
