@@ -7,7 +7,7 @@ export const buildIndex = async (
   updateIndex: boolean,
   mode: string
 ) => {
-  axios.post("http://127.0.0.1:8080/build-index", {
+  await axios.post("http://127.0.0.1:8080/build-index", {
     docs_path: "docs",
     index_file: indexName,
     update_index: updateIndex,

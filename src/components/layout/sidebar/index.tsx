@@ -1,21 +1,23 @@
+"use client";
+
+import { getPdfList, PdfFile } from "@/apis/get-pdf-list";
 import DocListItem from "@/components/doc-list-item";
-import { IndexConfigForm } from "@/components/index-config-form";
-import axios from "axios";
-import { Suspense } from "react";
+import { FormType, IndexConfigForm } from "@/components/index-config-form";
+import { Suspense, useEffect, useState } from "react";
 
-export type PdfFile = {
-  path: string;
-  name: string;
-};
+export default function Sidebar({ form }: { form: FormType }) {
+  const [pdfList, setPdfList] = useState<PdfFile[]>([]);
 
-export default async function Sidebar() {
-  const pdfList = (await axios.get("http://127.0.0.1:8080/list-pdfs"))
-    .data as PdfFile[];
+  useEffect(() => {
+    (async () => {
+      setPdfList(await getPdfList());
+    })();
+  }, []);
 
   return (
     <aside className="flex flex-col gap-4 h-full overflow-scroll">
       <Sidebar.Section title="Configure Index">
-        <IndexConfigForm />
+        <IndexConfigForm form={form} />
       </Sidebar.Section>
 
       <Sidebar.Section title="Docs">

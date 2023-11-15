@@ -13,27 +13,33 @@ export type ResultKind = "doc" | "page";
 type ResultTitleProps = {
   kind?: ResultKind;
   path?: string;
-  cumulativeScore?: number;
+  score?: number;
   rank?: number;
-  page?: number;
+  pageNumber?: number;
   docName?: string;
   sentiment?: string;
 };
-export default function ResultTile({ kind, path }: ResultTitleProps) {
+export default function ResultTile({
+  kind,
+  path,
+  sentiment,
+  score,
+  docName,
+  pageNumber,
+  rank,
+}: ResultTitleProps) {
   if (kind === "doc")
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-primary">Path To Enlightment</CardTitle>
-          <CardDescription>/users/ajay/document/a.pdf</CardDescription>
+          <CardTitle className="text-primary">{docName}</CardTitle>
+          <CardDescription>{path}</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
-            <div>Postive</div>
+            <div>{score}</div>
             <Separator orientation="vertical" />
-            <div>.9897</div>
-            <Separator orientation="vertical" />
-            <div>#1</div>
+            <div>#{rank}</div>
           </div>
         </CardContent>
       </Card>
@@ -42,16 +48,23 @@ export default function ResultTile({ kind, path }: ResultTitleProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-primary">Page #3</CardTitle>
-          <CardDescription>/users/ajay/document/a.pdf</CardDescription>
+          <CardTitle className="text-primary">
+            <p>
+              Page #{pageNumber} of{" "}
+              <span className="text-sm align-middle ml-2 text-muted-foreground">
+                {docName}
+              </span>
+            </p>
+          </CardTitle>
+          <CardDescription>{path}</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
-            <div>Postive</div>
+            <div>{sentiment}</div>
             <Separator orientation="vertical" />
-            <div>.9897</div>
+            <div>{score}</div>
             <Separator orientation="vertical" />
-            <div>#1</div>
+            <div>#{rank}</div>
           </div>
         </CardContent>
       </Card>

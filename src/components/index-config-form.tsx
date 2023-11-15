@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "./ui/switch";
-import { buildIndex } from "@/actions/build-index";
+import { buildIndex } from "@/apis/build-index";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   indexName: z.string().min(2, {
     message: "Index name must be at least 2 characters.",
   }),
@@ -35,20 +35,21 @@ const formSchema = z.object({
   updateIndex: z.boolean().default(false),
 });
 
-export function IndexConfigForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      indexName: "index.pkl",
-      updateIndex: false,
-    },
-  });
+export type FormType = UseFormReturn<
+  {
+    indexName: string;
+    mode: string;
+    updateIndex: boolean;
+  },
+  any,
+  undefined
+>;
 
+export function IndexConfigForm({ form }: { form: FormType }) {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     buildIndex(values.indexName, values.updateIndex, values.mode);
   }
-
   return (
     <Form {...form}>
       <form
