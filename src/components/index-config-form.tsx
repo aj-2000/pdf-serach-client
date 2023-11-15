@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "./ui/switch";
+import { buildIndex } from "@/actions/build-index";
 
 const formSchema = z.object({
   indexName: z.string().min(2, {
@@ -45,9 +46,7 @@ export function IndexConfigForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    buildIndex(values.indexName, values.updateIndex, values.mode);
   }
 
   return (
