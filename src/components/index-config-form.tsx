@@ -83,7 +83,7 @@ export function IndexConfigForm({ form }: { form: FormType }) {
                   <SelectTrigger>
                     <SelectValue placeholder="Select Mode" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="border-border">
                     <SelectItem value="tfidf">TF-IDF</SelectItem>
                     <SelectItem value="lsi">LSI</SelectItem>
                     <SelectItem value="doc2vec">Doc2Vec</SelectItem>
@@ -99,7 +99,7 @@ export function IndexConfigForm({ form }: { form: FormType }) {
           control={form.control}
           name="updateIndex"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+            <FormItem className="flex flex-row items-center justify-between  bg-card rounded-lg p-3 shadow-sm">
               <div className="space-y-0.5">
                 <FormLabel>Update index</FormLabel>
                 <FormDescription>

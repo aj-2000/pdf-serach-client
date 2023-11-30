@@ -15,7 +15,7 @@ export default function Sidebar({ form }: { form: FormType }) {
   }, []);
 
   return (
-    <aside className="flex flex-col gap-4 h-full overflow-scroll">
+    <aside className="flex flex-col gap-4 h-full overflow-scroll bg-secondary mx-2 my-3 rounded-3xl">
       <Sidebar.Section title="Configure Index">
         <IndexConfigForm form={form} />
       </Sidebar.Section>

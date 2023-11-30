@@ -34,7 +34,7 @@ export default function Home() {
       );
   };
   return (
-    <main className="flex flex-row gap-4 w-full h-screen">
+    <main className="flex flex-row gap-4 bg-background w-full h-screen">
       <div className="w-[300px]">
         <Sidebar form={form} />
       </div>

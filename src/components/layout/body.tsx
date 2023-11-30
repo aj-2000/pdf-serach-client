@@ -1,5 +1,5 @@
 import { SearchResults } from "@/apis/query-index";
-import ResultTile from "../ui/result-tile";
+import ResultTile from "../result-tile";
 
 export default function Body({
   queryResults,
@@ -9,13 +9,13 @@ export default function Body({
   const { pages, docs, query_time } = queryResults;
 
   return (
-    <div className="p-2">
+    <div className="p-2 bg-secondary rounded-3xl">
       {query_time !== undefined ? (
-        <p className="m-2 font-mono text-green-500 border-2 border-green-500 rounded-lg p-2 w-[200px]">
+        <p className="m-2 font-mono font-bold bg-card border border-primary text-primary rounded-lg p-2 w-[185px]">
           took {query_time.toFixed(2)} ms
         </p>
       ) : null}
-      <div className="flex gap-4 ">
+      <div className="flex gap-4">
         {pages === undefined && docs === undefined ? (
           <div className="w-full h-full flex flex-col gap-20 items-center justify-center p-20">
             <p className="font-light text-4xl text-primary">
@@ -29,7 +29,7 @@ export default function Body({
           </div>
         ) : (
           <>
-            <div className="flex grow flex-col gap-2">
+            <div className="flex grow flex-col gap-4">
               <span>Top Pages</span>
               {pages?.map((page, i) => (
                 <>
@@ -46,7 +46,7 @@ export default function Body({
                 </>
               ))}
             </div>
-            <div className="flex grow flex-col gap-2">
+            <div className="flex grow flex-col gap-4">
               <span>Top Documents</span>
               {docs?.map((doc, i) => (
                 <>
