@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "./separator";
+import { openPDF } from "@/lib/utils";
 
 export type ResultKind = "doc" | "page";
 
@@ -33,7 +34,12 @@ export default function ResultTile({
       <Card>
         <CardHeader>
           <CardTitle className="text-primary">{docName}</CardTitle>
-          <CardDescription>{path}</CardDescription>
+          <CardDescription
+            className="hover:cursor-pointer hover:text-primary"
+            onClick={() => path && openPDF(path, pageNumber)}
+          >
+            {path}
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
@@ -56,7 +62,12 @@ export default function ResultTile({
               </span>
             </p>
           </CardTitle>
-          <CardDescription>{path}</CardDescription>
+          <CardDescription
+            className="text-xs text-muted-foreground hover:cursor-pointer hover:text-primary"
+            onClick={() => path && openPDF(path, pageNumber)}
+          >
+            {path}
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
