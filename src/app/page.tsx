@@ -14,13 +14,14 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      indexName: "index.pkl",
+      indexName: "index_data.pkl",
       updateIndex: false,
     },
   });
   const [queryResults, setQueryResults] = useState<SearchResults>({
     pages: [],
     docs: [],
+    query_time: NaN,
   });
   const onClickQueryButton = async (query: string) => {
     setQueryResults(
