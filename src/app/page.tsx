@@ -19,14 +19,19 @@ export default function Home() {
     },
   });
   const [queryResults, setQueryResults] = useState<SearchResults>({
-    pages: [],
-    docs: [],
-    query_time: NaN,
+    pages: undefined,
+    docs: undefined,
+    query_time: undefined,
   });
   const onClickQueryButton = async (query: string) => {
-    setQueryResults(
-      await queryIndex(query, form.getValues().indexName, form.getValues().mode)
-    );
+    if (query)
+      setQueryResults(
+        await queryIndex(
+          query,
+          form.getValues().indexName,
+          form.getValues().mode
+        )
+      );
   };
   return (
     <main className="flex flex-row gap-4 w-full h-screen">

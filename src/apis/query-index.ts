@@ -15,9 +15,9 @@ type Document = {
 };
 
 export type SearchResults = {
-  pages: Page[];
-  docs: Document[];
-  query_time: number;
+  pages?: Page[];
+  docs?: Document[];
+  query_time?: number;
 };
 
 export const queryIndex = async (
