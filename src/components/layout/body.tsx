@@ -1,20 +1,90 @@
 import { SearchResults } from "@/apis/query-index";
 import ResultTile from "../result-tile";
+import { useLocalStorageState } from "@/hooks/use-local-storage";
+import { useEffect, useState } from "react";
+import { TestVisualizer } from "../test-visualizer";
 
 export default function Body({
   queryResults,
+  mode,
 }: {
   queryResults: SearchResults;
+  mode: string;
 }) {
   const { pages, docs, query_time } = queryResults;
+  const [isRecorded, setIsRecorded] = useState<boolean>(false);
 
+  useEffect(() => {
+    setIsRecorded(false);
+  }, [queryResults.query_id]);
+
+  const [testData, setTestData] = useLocalStorageState("test-data", []);
+
+  function addTestCase(testCase: any) {
+    setIsRecorded(true);
+    setTestData((prev: any) => [testCase, ...prev]);
+  }
   return (
     <div className="p-2 bg-secondary rounded-3xl">
-      {query_time !== undefined ? (
-        <p className="m-2 font-mono font-bold bg-card border border-primary text-primary rounded-lg p-2 w-[185px]">
-          took {query_time.toFixed(2)} ms
-        </p>
-      ) : null}
+      <div className="flex justify-between">
+        {isRecorded || queryResults.query_id === undefined ? (
+          <div className="flex gap-2 items-center">
+            <p className="m-2 font-mono text-sm font-bold bg-card border border-primary text-primary rounded-lg p-2 w-[185px]">
+              Recorded - {testData?.length}
+            </p>
+            <TestVisualizer testData={testData} />
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                addTestCase({
+                  id: queryResults.query_id,
+                  mode: mode,
+                  feedback: "Very Satisfied",
+                  query: queryResults.query,
+                });
+              }}
+              className="m-2 font-mono text-sm font-bold bg-card border border-green-500 text-green-500 rounded-lg p-2 w-[185px]"
+            >
+              Very Satisfied
+            </button>
+            <button
+              onClick={() => {
+                addTestCase({
+                  id: queryResults.query_id,
+                  mode: mode,
+                  feedback: "Satisfied",
+                  query: queryResults.query,
+                });
+              }}
+              className="m-2 font-mono text-sm font-bold bg-card border border-yellow-500 text-yellow-500 rounded-lg p-2 w-[185px]"
+            >
+              Satisfied
+            </button>
+            <button
+              onClick={() => {
+                addTestCase({
+                  id: queryResults.query_id,
+                  mode: mode,
+                  feedback: "Not Satisfied",
+                  query: queryResults.query,
+                });
+              }}
+              className="m-2 font-mono text-sm font-bold bg-card border border-red-500 text-red-500 rounded-lg p-2 w-[185px]"
+            >
+              Not Satisfied
+            </button>
+          </div>
+        )}
+
+        {query_time !== undefined ? (
+          <p className="m-2 font-mono text-sm font-bold bg-card border border-primary text-primary rounded-lg p-2 w-[185px]">
+            took {query_time.toFixed(2)} ms
+          </p>
+        ) : null}
+      </div>
+
       <div className="flex gap-4">
         {pages === undefined && docs === undefined ? (
           <div className="w-full h-full flex flex-col gap-20 items-center justify-center p-20">

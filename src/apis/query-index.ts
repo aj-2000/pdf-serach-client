@@ -18,6 +18,8 @@ export type SearchResults = {
   pages?: Page[];
   docs?: Document[];
   query_time?: number;
+  query_id?: string;
+  query?: string;
 };
 
 export const queryIndex = async (

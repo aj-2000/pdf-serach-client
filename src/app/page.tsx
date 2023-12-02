@@ -44,7 +44,7 @@ export default function Home() {
           <Header onClickQueryButton={onClickQueryButton} />
         </div>
         <div className="h-[calc(100vh-100px)] overflow-scroll">
-          <Body queryResults={queryResults} />
+          <Body queryResults={queryResults} mode={form.getValues().mode} />
         </div>
       </div>
     </main>
