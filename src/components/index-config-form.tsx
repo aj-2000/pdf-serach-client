@@ -1,5 +1,6 @@
 "use client";
-
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import * as z from "zod";
@@ -24,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "./ui/switch";
 import { buildIndex } from "@/apis/build-index";
+import { useState } from "react";
 
 export const formSchema = z.object({
   indexName: z.string().min(2, {
@@ -45,10 +47,40 @@ export type FormType = UseFormReturn<
   undefined
 >;
 
+export type IndexBuildStatus =
+  | "in_progress"
+  | "success"
+  | "failed"
+  | "cancelled"
+  | "idle";
+
 export function IndexConfigForm({ form }: { form: FormType }) {
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    buildIndex(values.indexName, values.updateIndex, values.mode);
+  const [status, setStatus] = useState<IndexBuildStatus>("idle");
+  const { toast } = useToast();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    toast({
+      title: `Index "${values.indexName}" build started`,
+    });
+    setStatus("in_progress");
+    const res = (await buildIndex(
+      values.indexName,
+      values.updateIndex,
+      values.mode
+    )) as IndexBuildStatus;
+    if (res === "success") {
+      toast({
+        title: `Index "${values.indexName}" builded successfully`,
+      });
+    } else if (res === "failed") {
+      toast({
+        title: `"Index ${values.indexName}" build failed`,
+      });
+    } else {
+      toast({
+        title: `Something went wrong while building index "${values.indexName}"`,
+      });
+    }
+    setStatus("idle");
   }
   return (
     <Form {...form}>
@@ -118,7 +150,9 @@ export function IndexConfigForm({ form }: { form: FormType }) {
           )}
         />
 
-        <Button type="submit">Build</Button>
+        <Button disabled={status === "in_progress"} type="submit">
+          Build
+        </Button>
       </form>
     </Form>
   );
