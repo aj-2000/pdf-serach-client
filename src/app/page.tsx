@@ -22,6 +22,7 @@ export default function Home() {
     pages: undefined,
     docs: undefined,
     query_time: undefined,
+    query_id: undefined,
   });
   const onClickQueryButton = async (query: string) => {
     if (query)

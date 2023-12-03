@@ -24,6 +24,7 @@ export default function Body({
     setIsRecorded(true);
     setTestData((prev: any) => [testCase, ...prev]);
   }
+
   return (
     <div className="p-2 bg-secondary rounded-3xl">
       <div className="flex justify-between">
@@ -43,6 +44,7 @@ export default function Body({
                   mode: mode,
                   feedback: "Very Satisfied",
                   query: queryResults.query,
+                  queryTime: queryResults.query_time,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-green-500 text-green-500 rounded-lg p-2 w-[185px]"
@@ -56,6 +58,7 @@ export default function Body({
                   mode: mode,
                   feedback: "Satisfied",
                   query: queryResults.query,
+                  queryTime: queryResults.query_time,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-yellow-500 text-yellow-500 rounded-lg p-2 w-[185px]"
@@ -69,6 +72,7 @@ export default function Body({
                   mode: mode,
                   feedback: "Not Satisfied",
                   query: queryResults.query,
+                  queryTime: queryResults.query_time,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-red-500 text-red-500 rounded-lg p-2 w-[185px]"
