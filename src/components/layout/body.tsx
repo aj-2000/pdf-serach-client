@@ -3,6 +3,7 @@ import ResultTile from "../result-tile";
 import { useLocalStorageState } from "@/hooks/use-local-storage";
 import { useEffect, useState } from "react";
 import { TestVisualizer } from "../test-visualizer";
+import { TestTable } from "../test-table";
 
 export default function Body({
   queryResults,
@@ -32,6 +33,7 @@ export default function Body({
               Recorded - {testData?.length}
             </p>
             <TestVisualizer testData={testData} />
+            <TestTable testData={testData} />
           </div>
         ) : (
           <div className="flex gap-2">
@@ -43,6 +45,8 @@ export default function Body({
                   feedback: "Very Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
+                  time: Date.now(),
+                  index: queryResults.index,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-green-500 text-green-500 rounded-lg p-2 w-[185px]"
@@ -57,6 +61,8 @@ export default function Body({
                   feedback: "Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
+                  time: Date.now(),
+                  index: queryResults.index,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-yellow-500 text-yellow-500 rounded-lg p-2 w-[185px]"
@@ -71,6 +77,8 @@ export default function Body({
                   feedback: "Not Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
+                  time: Date.now(),
+                  index: queryResults.index,
                 });
               }}
               className="m-2 font-mono text-sm font-bold bg-card border border-red-500 text-red-500 rounded-lg p-2 w-[185px]"

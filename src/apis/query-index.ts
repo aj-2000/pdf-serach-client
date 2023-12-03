@@ -23,6 +23,7 @@ export type SearchResults = {
   query_id?: string;
   query?: string;
   mode?: string;
+  index?: string;
 };
 
 export const queryIndex = async (
