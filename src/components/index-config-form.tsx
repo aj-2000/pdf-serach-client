@@ -26,6 +26,7 @@ import {
 import { Switch } from "./ui/switch";
 import { buildIndex } from "@/apis/build-index";
 import { useState } from "react";
+import { getIndexList, Index } from "@/apis/get-index-list";
 
 export const formSchema = z.object({
   indexName: z.string().min(2, {
@@ -54,7 +55,13 @@ export type IndexBuildStatus =
   | "cancelled"
   | "idle";
 
-export function IndexConfigForm({ form }: { form: FormType }) {
+export function IndexConfigForm({
+  form,
+  setIndexList,
+}: {
+  form: FormType;
+  setIndexList: any;
+}) {
   const [status, setStatus] = useState<IndexBuildStatus>("idle");
   const { toast } = useToast();
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -81,7 +88,11 @@ export function IndexConfigForm({ form }: { form: FormType }) {
       });
     }
     setStatus("idle");
+    (async () => {
+      setIndexList(await getIndexList());
+    })();
   }
+
   return (
     <Form {...form}>
       <form
@@ -151,7 +162,7 @@ export function IndexConfigForm({ form }: { form: FormType }) {
         />
 
         <Button disabled={status === "in_progress"} type="submit">
-          Build
+          {status === "in_progress" ? "Building" : "Build"}
         </Button>
       </form>
     </Form>

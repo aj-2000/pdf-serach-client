@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "./ui/separator";
 import { openPDF } from "@/lib/utils";
+import { SentimentScoreToText } from "./sentiment-score-to-text";
 
 export type ResultKind = "doc" | "page";
 
@@ -40,6 +41,8 @@ export default function ResultTile({
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
+            <SentimentScoreToText sentimentScore={Number(sentiment)} />
+            <Separator orientation="vertical" />
             <div>{score}</div>
             <Separator orientation="vertical" />
             <div>#{rank}</div>
@@ -68,7 +71,7 @@ export default function ResultTile({
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
-            <div>{sentiment}</div>
+            <SentimentScoreToText sentimentScore={Number(sentiment)} />
             <Separator orientation="vertical" />
             <div>{score}</div>
             <Separator orientation="vertical" />

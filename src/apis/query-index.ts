@@ -6,13 +6,14 @@ type Page = {
   path: string;
   page_number: number;
   score: number;
-  sentiment: string | null; // Assuming sentiment can be null
+  sentiment: number;
 };
 
 type Document = {
   document_name: string;
   path: string;
   cumulative_score: number;
+  sentiment: number;
 };
 
 export type SearchResults = {

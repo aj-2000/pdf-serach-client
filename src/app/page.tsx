@@ -26,7 +26,7 @@ export default function Home() {
     query_id: undefined,
   });
 
-  const [indexList, setIndexes] = useState<Index[]>([]);
+  const [indexList, setIndexList] = useState<Index[]>([]);
 
   const onClickQueryButton = async (query: string, index: Index) => {
     if (query) setQueryResults(await queryIndex(query, index.name, index.mode));
@@ -34,14 +34,14 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      setIndexes(await getIndexList());
+      setIndexList(await getIndexList());
     })();
   }, []);
 
   return (
     <main className="flex flex-row gap-4 bg-background w-full h-screen">
       <div className="w-[300px]">
-        <Sidebar form={form} />
+        <Sidebar setIndexList={setIndexList} form={form} />
       </div>
       <Separator orientation="vertical" />
       <div className="grow">

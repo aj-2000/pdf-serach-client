@@ -5,7 +5,13 @@ import DocListItem from "@/components/doc-list-item";
 import { FormType, IndexConfigForm } from "@/components/index-config-form";
 import { Suspense, useEffect, useState } from "react";
 
-export default function Sidebar({ form }: { form: FormType }) {
+export default function Sidebar({
+  form,
+  setIndexList,
+}: {
+  form: FormType;
+  setIndexList: any;
+}) {
   const [pdfList, setPdfList] = useState<PdfFile[]>([]);
 
   useEffect(() => {
@@ -17,7 +23,7 @@ export default function Sidebar({ form }: { form: FormType }) {
   return (
     <aside className="flex flex-col gap-4 h-full overflow-scroll bg-secondary mx-2 my-3 rounded-3xl">
       <Sidebar.Section title="Configure Index">
-        <IndexConfigForm form={form} />
+        <IndexConfigForm setIndexList={setIndexList} form={form} />
       </Sidebar.Section>
 
       <Sidebar.Section title="Docs">
