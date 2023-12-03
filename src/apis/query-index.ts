@@ -21,6 +21,7 @@ export type SearchResults = {
   query_time?: number;
   query_id?: string;
   query?: string;
+  mode?: string;
 };
 
 export const queryIndex = async (

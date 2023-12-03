@@ -6,9 +6,10 @@ import Header from "@/components/layout/header";
 import Sidebar from "@/components/layout/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Index, getIndexList } from "@/apis/get-index-list";
 
 export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -24,16 +25,19 @@ export default function Home() {
     query_time: undefined,
     query_id: undefined,
   });
-  const onClickQueryButton = async (query: string) => {
-    if (query)
-      setQueryResults(
-        await queryIndex(
-          query,
-          form.getValues().indexName,
-          form.getValues().mode
-        )
-      );
+
+  const [indexList, setIndexes] = useState<Index[]>([]);
+
+  const onClickQueryButton = async (query: string, index: Index) => {
+    if (query) setQueryResults(await queryIndex(query, index.name, index.mode));
   };
+
+  useEffect(() => {
+    (async () => {
+      setIndexes(await getIndexList());
+    })();
+  }, []);
+
   return (
     <main className="flex flex-row gap-4 bg-background w-full h-screen">
       <div className="w-[300px]">
@@ -42,10 +46,13 @@ export default function Home() {
       <Separator orientation="vertical" />
       <div className="grow">
         <div className="h-[100px]">
-          <Header onClickQueryButton={onClickQueryButton} />
+          <Header
+            indexList={indexList}
+            onClickQueryButton={onClickQueryButton}
+          />
         </div>
         <div className="h-[calc(100vh-100px)] overflow-scroll">
-          <Body queryResults={queryResults} mode={form.getValues().mode} />
+          <Body queryResults={queryResults} />
         </div>
       </div>
     </main>

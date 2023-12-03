@@ -6,10 +6,8 @@ import { TestVisualizer } from "../test-visualizer";
 
 export default function Body({
   queryResults,
-  mode,
 }: {
   queryResults: SearchResults;
-  mode: string;
 }) {
   const { pages, docs, query_time } = queryResults;
   const [isRecorded, setIsRecorded] = useState<boolean>(false);
@@ -41,7 +39,7 @@ export default function Body({
               onClick={() => {
                 addTestCase({
                   id: queryResults.query_id,
-                  mode: mode,
+                  mode: queryResults.mode,
                   feedback: "Very Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
@@ -55,7 +53,7 @@ export default function Body({
               onClick={() => {
                 addTestCase({
                   id: queryResults.query_id,
-                  mode: mode,
+                  mode: queryResults.mode,
                   feedback: "Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
@@ -69,7 +67,7 @@ export default function Body({
               onClick={() => {
                 addTestCase({
                   id: queryResults.query_id,
-                  mode: mode,
+                  mode: queryResults.mode,
                   feedback: "Not Satisfied",
                   query: queryResults.query,
                   queryTime: queryResults.query_time,
