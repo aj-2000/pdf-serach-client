@@ -20,7 +20,6 @@ import { Table as TableIcon } from "lucide-react";
 import { formatTimestamp } from "@/lib/utils";
 
 export function TestTable({ testData }: { testData: any[] }) {
-  console.log(testData);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,21 +27,22 @@ export function TestTable({ testData }: { testData: any[] }) {
           <TableIcon className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[50%] max-h-[60%] overflow-y-scroll">
+      <DialogContent className="max-w-[60%] max-h-[80%] overflow-auto no-scrollbar border-primary-foreground">
         <DialogHeader>
           <DialogTitle>Test Cases</DialogTitle>
         </DialogHeader>
-        <Table>
+
+        <Table className="text-xs">
           <TableCaption>A list of your recorded test cases.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">S. No.</TableHead>
+              <TableHead></TableHead>
               <TableHead>Recorded at</TableHead>
               <TableHead>Mode</TableHead>
               <TableHead>Index</TableHead>
               <TableHead>Feedback</TableHead>
               <TableHead>Time (ms)</TableHead>
-              <TableHead className="max-w-[400px]">Query</TableHead>
+              <TableHead>Query</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

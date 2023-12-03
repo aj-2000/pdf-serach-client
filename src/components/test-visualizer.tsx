@@ -12,23 +12,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export function TabsDemo() {
-  return (
-    <Tabs defaultValue="account" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">ALL</TabsTrigger>
-        <TabsTrigger value="password">TF-IDF</TabsTrigger>
-        <TabsTrigger value="password">LSI</TabsTrigger>
-        <TabsTrigger value="password">Doc2Vec</TabsTrigger>
-      </TabsList>
-      <TabsContent value="tfidf">all</TabsContent>
-      <TabsContent value="tfidf">tfidf</TabsContent>
-      <TabsContent value="lsi">lsi</TabsContent>
-      <TabsContent value="lsi">doc2vec</TabsContent>
-    </Tabs>
-  );
-}
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 const calculateFeedbackData = (data: any) => {
   const feedbackCounts: any = {
@@ -116,7 +99,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
           <BarChart className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[455px]">
+      <DialogContent className="sm:max-w-[455px] border-primary-foreground">
         <DialogHeader>
           <DialogTitle>Test Cases</DialogTitle>
         </DialogHeader>

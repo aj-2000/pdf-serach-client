@@ -15,10 +15,11 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      indexName: "index_data.pkl",
+      indexName: "test",
       updateIndex: false,
     },
   });
+
   const [queryResults, setQueryResults] = useState<SearchResults>({
     pages: undefined,
     docs: undefined,
@@ -39,19 +40,20 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-row gap-4 bg-background w-full h-screen">
-      <div className="w-[300px]">
+    <main className="grid grid-cols-12 bg-background max-w-screen">
+      <div className="col-span-3 max-h-screen px-2 py-3">
         <Sidebar setIndexList={setIndexList} form={form} />
       </div>
-      <Separator orientation="vertical" />
-      <div className="grow">
-        <div className="h-[100px]">
+
+      <div className="flex flex-col gap-4 justify-between col-span-9 max-h-screen px-2 py-3">
+        <div className="">
           <Header
+            queryResults={queryResults}
             indexList={indexList}
             onClickQueryButton={onClickQueryButton}
           />
         </div>
-        <div className="h-[calc(100vh-100px)] overflow-scroll">
+        <div className="h-[calc(100vh-210px)]">
           <Body queryResults={queryResults} />
         </div>
       </div>
