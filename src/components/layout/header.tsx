@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import { TestVisualizer } from "../test-visualizer";
 import { TestTable } from "../test-table";
 import { SearchResults } from "@/apis/query-index";
+
 export const formSchema = z.object({
   indexFile: z.string().min(3, {
     message: "Index file must be at least 3 characters.",
@@ -49,6 +50,14 @@ export const f1FormSchema = z.object({
       .positive("FP Docs must be positive")
       .optional()
   ),
+  fnDocs: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "FP Docs must be a number" })
+      .positive("FP Docs must be positive")
+      .optional()
+  ),
+
   tpPages: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
@@ -63,12 +72,20 @@ export const f1FormSchema = z.object({
       .positive("FP Pages must be positive")
       .optional()
   ),
+  fnPages: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "FP Pages must be a number" })
+      .positive("FP Pages must be positive")
+      .optional()
+  ),
   feedback: z.string({
     required_error: "feedback is required.",
   }),
 });
 import { SunIcon, MoonIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { PerformanceMetrics } from "../performance-metrics";
 
 export default function Header({
   onClickQueryButton,
@@ -120,8 +137,10 @@ export default function Header({
       index: queryResults.index,
       tpDocs: values.tpDocs,
       fpDocs: values.fpDocs,
+      fnDocs: values.fnDocs,
       tpPages: values.tpPages,
       fpPages: values.fpPages,
+      fnPages: values.fnPages,
     });
   }
   return (
@@ -216,6 +235,7 @@ export default function Header({
               <div className="flex gap-2">
                 <TestVisualizer testData={testData} />
                 <TestTable testData={testData} />
+                <PerformanceMetrics testData={testData} />
               </div>
             </div>
           ) : (
@@ -260,6 +280,23 @@ export default function Header({
                 />
                 <FormField
                   control={f1Form.control}
+                  name="fnDocs"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="FN Docs"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
                   name="tpPages"
                   render={({ field }) => (
                     <FormItem>
@@ -285,6 +322,23 @@ export default function Header({
                           className="w-28"
                           type="number"
                           placeholder="FP Pages"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
+                  name="fnPages"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="FN Pages"
                           {...field}
                         />
                       </FormControl>
