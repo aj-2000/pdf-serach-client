@@ -29,11 +29,11 @@ export function TestTable({ testData }: { testData: any[] }) {
       </DialogTrigger>
       <DialogContent className="max-w-[60%] max-h-[80%] overflow-auto no-scrollbar border-border">
         <DialogHeader>
-          <DialogTitle>Test Cases</DialogTitle>
+          <DialogTitle>Feedbacks</DialogTitle>
         </DialogHeader>
 
         <Table className="text-xs">
-          <TableCaption>A list of your recorded test cases.</TableCaption>
+          <TableCaption>A list of your recorded feedbacks.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead></TableHead>

@@ -72,11 +72,21 @@ export default function Header({
   }
   return (
     <header className="w-full flex gap-2 rounded-lg border border-border px-2 py-3">
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-3">
         <div className="w-full flex justify-between">
-          <p className="font-thin text-4xl text-primary rounded-lg">
-            PDF Search Engine
-          </p>
+          <Button
+            onClick={() => {
+              theme === "light" ? setTheme("dark") : setTheme("light");
+            }}
+            size="icon"
+            variant="outline"
+          >
+            {theme === "light" ? (
+              <MoonIcon className="w-4 h-4" />
+            ) : (
+              <SunIcon className="w-4 h-4" />
+            )}
+          </Button>
           <div className="flex gap-2">
             <Form {...form}>
               <form
@@ -89,7 +99,11 @@ export default function Header({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input {...field} placeholder="search docs..." />
+                        <Input
+                          className="w-[480px]"
+                          {...field}
+                          placeholder="search docs..."
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -132,19 +146,6 @@ export default function Header({
                 </Button>
               </form>
             </Form>
-            <Button
-              onClick={() => {
-                theme === "light" ? setTheme("dark") : setTheme("light");
-              }}
-              size="icon"
-              variant="outline"
-            >
-              {theme === "light" ? (
-                <MoonIcon className="w-4 h-4" />
-              ) : (
-                <SunIcon className="w-4 h-4" />
-              )}
-            </Button>
           </div>
         </div>
         <div className="flex justify-between">

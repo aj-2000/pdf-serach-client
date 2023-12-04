@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PDF serach Frontend",
+  title: "PDF search engine",
   description: "search blazingly fast",
 };
 

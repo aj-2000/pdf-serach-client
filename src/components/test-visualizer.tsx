@@ -101,7 +101,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[455px] border-primary-foreground">
         <DialogHeader>
-          <DialogTitle>Test Cases</DialogTitle>
+          <DialogTitle>Feedbacks</DialogTitle>
         </DialogHeader>
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList className="flex gap-2">
@@ -119,7 +119,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
             {testData.length > 0 ? (
               <Pie id="all" data={getPieData(percentages)} />
             ) : (
-              <p>No test cases recorded!</p>
+              <p>No feedbacks recorded!</p>
             )}
           </TabsContent>
           <TabsContent value="tfidf">
@@ -131,7 +131,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
             {tfidf?.length > 0 ? (
               <Pie id="tfidf" data={getPieData(tfidfData.percentages)} />
             ) : (
-              <p>No test cases recorded!</p>
+              <p>No feedbacks recorded!</p>
             )}
           </TabsContent>
           <TabsContent value="lsi">
@@ -143,7 +143,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
             {lsi?.length > 0 ? (
               <Pie id="lsi" data={getPieData(lsiData.percentages)} />
             ) : (
-              <p>No test cases recorded!</p>
+              <p>No feedbacks recorded!</p>
             )}
           </TabsContent>
           <TabsContent value="doc2vec">
@@ -155,7 +155,7 @@ export function TestVisualizer({ testData }: { testData: any[] }) {
             {doc2vec.length > 0 ? (
               <Pie id="doc2vec" data={getPieData(doc2vecData.percentages)} />
             ) : (
-              <p>No test cases recorded!</p>
+              <p>No feedbacks recorded!</p>
             )}
           </TabsContent>
         </Tabs>
