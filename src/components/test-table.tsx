@@ -47,7 +47,7 @@ export function TestTable({ testData }: { testData: any[] }) {
           </TableHeader>
           <TableBody>
             {testData.map((test, index) => (
-              <TableRow key={test.query_id}>
+              <TableRow key={test.id}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell>{formatTimestamp(test.time)}</TableCell>
                 <TableCell>{test.mode}</TableCell>

@@ -65,7 +65,7 @@ const groupByMode = (data: any): Record<string, any[]> => {
 };
 const getPieData = (percentages: number[]) => {
   return {
-    labels: ["Very Satisfied", "Satified", "Not Satisfied"],
+    labels: ["Very Satisfied", "Satisfied", "Not Satisfied"],
     datasets: [
       {
         label: "Feedback",
