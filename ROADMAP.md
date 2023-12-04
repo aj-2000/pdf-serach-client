@@ -1,1 +1,1 @@
-1. fix borders and overflow
+model size vs avg-query time

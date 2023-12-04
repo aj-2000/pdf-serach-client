@@ -21,7 +21,7 @@ export default function Sidebar({
   }, []);
 
   return (
-    <aside className="gap-4 bg-secondary rounded-lg h-full w-full overflow-auto no-scrollbar">
+    <aside className="gap-4 border border-border rounded-lg h-full w-full overflow-auto no-scrollbar">
       <Sidebar.Section title="Build Index">
         <IndexConfigForm setIndexList={setIndexList} form={form} />
       </Sidebar.Section>

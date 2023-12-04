@@ -9,7 +9,7 @@ export default function Body({
   const { docs, pages } = queryResults;
 
   return (
-    <div className="h-full bg-secondary rounded-lg overflow-auto py-3 px-2 no-scrollbar">
+    <div className="h-full border border-border rounded-lg overflow-auto py-3 px-2 no-scrollbar">
       <div className="h-full flex gap-4">
         {pages === undefined && docs === undefined ? (
           <div className="w-full h-full flex flex-col gap-20 items-center justify-center p-20">

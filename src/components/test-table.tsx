@@ -27,7 +27,7 @@ export function TestTable({ testData }: { testData: any[] }) {
           <TableIcon className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[60%] max-h-[80%] overflow-auto no-scrollbar border-primary-foreground">
+      <DialogContent className="max-w-[60%] max-h-[80%] overflow-auto no-scrollbar border-border">
         <DialogHeader>
           <DialogTitle>Test Cases</DialogTitle>
         </DialogHeader>

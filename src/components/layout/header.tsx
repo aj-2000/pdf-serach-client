@@ -68,7 +68,7 @@ export default function Header({
     });
   }
   return (
-    <header className="w-full flex gap-2 rounded-lg bg-secondary px-2 py-3">
+    <header className="w-full flex gap-2 rounded-lg border border-border px-2 py-3">
       <div className="w-full flex flex-col gap-4">
         <div className="w-full flex justify-between">
           <p className="font-thin text-4xl text-primary rounded-lg">
@@ -105,7 +105,7 @@ export default function Header({
                           <SelectTrigger>
                             <SelectValue placeholder="Select Index" />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent className="border-border">
                             <SelectGroup>
                               {indexList.map((index) => (
                                 <SelectItem
@@ -131,13 +131,13 @@ export default function Header({
         </div>
         <div className="flex justify-between">
           {query_time !== undefined && !isRecorded ? (
-            <p className="font-mono max-w-[179px] text-sm font-bold bg-card border border-primary-foreground text-primary rounded-lg h-10 px-4 py-2">
+            <p className="font-mono text-sm font-bold bg-card border border-border text-primary rounded-lg h-10 px-4 py-2">
               took {query_time.toFixed(2)} ms
             </p>
           ) : null}
           {isRecorded || queryResults.query_id === undefined ? (
             <div className="w-full flex justify-between gap-2 items-center">
-              <p className="font-mono text-sm font-bold bg-card border border-primary text-primary rounded-lg h-10 px-4 py-2">
+              <p className="font-mono text-sm font-bold bg-card border border-border text-primary rounded-lg h-10 px-4 py-2">
                 Recorded - {testData?.length}
               </p>
               <div className="flex gap-2">
@@ -159,7 +159,7 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-primary-foreground text-green-500 rounded-lg h-10 px-4 py-2"
+                className="font-mono text-sm font-bold bg-card border border-border text-green-500 rounded-lg h-10 px-4 py-2"
               >
                 Very Satisfied
               </button>
@@ -175,7 +175,7 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-primary-foreground text-yellow-500 rounded-lg h-10 px-4 py-2"
+                className="font-mono text-sm font-bold bg-card border border-border text-yellow-500 rounded-lg h-10 px-4 py-2"
               >
                 Satisfied
               </button>
@@ -191,7 +191,7 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-primary-foreground text-red-500 rounded-lg h-10 px-4 py-2"
+                className="font-mono text-sm font-bold bg-card border border-border text-red-500 rounded-lg h-10 px-4 py-2"
               >
                 Not Satisfied
               </button>
