@@ -17,6 +17,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -31,6 +32,39 @@ export const formSchema = z.object({
   }),
   query: z.string({
     required_error: "Query can not be empty.",
+  }),
+});
+export const f1FormSchema = z.object({
+  tpDocs: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "TP Docs must be a number" })
+      .positive("TP Docs must be positive")
+      .optional()
+  ),
+  fpDocs: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "FP Docs must be a number" })
+      .positive("FP Docs must be positive")
+      .optional()
+  ),
+  tpPages: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "TP Pages must be a number" })
+      .positive("TP Pages must be positive")
+      .optional()
+  ),
+  fpPages: z.preprocess(
+    (args) => (args === "" ? undefined : args),
+    z.coerce
+      .number({ invalid_type_error: "FP Pages must be a number" })
+      .positive("FP Pages must be positive")
+      .optional()
+  ),
+  feedback: z.string({
+    required_error: "feedback is required.",
   }),
 });
 import { SunIcon, MoonIcon } from "lucide-react";
@@ -52,6 +86,10 @@ export default function Header({
       query: undefined,
     },
   });
+  const f1Form = useForm<z.infer<typeof f1FormSchema>>({
+    resolver: zodResolver(f1FormSchema),
+    defaultValues: {},
+  });
   const { setTheme, theme } = useTheme();
   const { query_time } = queryResults;
   const [isRecorded, setIsRecorded] = useState<boolean>(false);
@@ -64,10 +102,26 @@ export default function Header({
     setTestData((prev: any) => [testCase, ...prev]);
   }
 
-  function onSubmit() {
-    onClickQueryButton(form.getValues().query, {
-      mode: form.getValues().indexFile.split(".")[1],
-      name: form.getValues().indexFile.split(".")[0],
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    onClickQueryButton(values.query, {
+      mode: values.indexFile.split(".")[1],
+      name: values.indexFile.split(".")[0],
+    });
+  }
+
+  function onRecord(values: z.infer<typeof f1FormSchema>) {
+    addTestCase({
+      id: queryResults.query_id,
+      mode: queryResults.mode,
+      feedback: values.feedback,
+      query: queryResults.query,
+      queryTime: queryResults.query_time,
+      time: Date.now(),
+      index: queryResults.index,
+      tpDocs: values.tpDocs,
+      fpDocs: values.fpDocs,
+      tpPages: values.tpPages,
+      fpPages: values.fpPages,
     });
   }
   return (
@@ -148,7 +202,7 @@ export default function Header({
             </Form>
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-2">
           {query_time !== undefined && !isRecorded ? (
             <p className="font-mono text-sm font-bold bg-card border border-border text-primary rounded-lg h-10 px-4 py-2">
               took {query_time.toFixed(2)} ms
@@ -165,59 +219,113 @@ export default function Header({
               </div>
             </div>
           ) : (
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  addTestCase({
-                    id: queryResults.query_id,
-                    mode: queryResults.mode,
-                    feedback: "Very Satisfied",
-                    query: queryResults.query,
-                    queryTime: queryResults.query_time,
-                    time: Date.now(),
-                    index: queryResults.index,
-                  });
-                }}
-                className="text-green-500 hover:text-green-500"
+            <Form {...f1Form}>
+              <form
+                onSubmit={f1Form.handleSubmit(onRecord)}
+                className="flex gap-2"
               >
-                Very Satisfied
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  addTestCase({
-                    id: queryResults.query_id,
-                    mode: queryResults.mode,
-                    feedback: "Satisfied",
-                    query: queryResults.query,
-                    queryTime: queryResults.query_time,
-                    time: Date.now(),
-                    index: queryResults.index,
-                  });
-                }}
-                className="text-yellow-500 hover:text-yellow-500"
-              >
-                Satisfied
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  addTestCase({
-                    id: queryResults.query_id,
-                    mode: queryResults.mode,
-                    feedback: "Not Satisfied",
-                    query: queryResults.query,
-                    queryTime: queryResults.query_time,
-                    time: Date.now(),
-                    index: queryResults.index,
-                  });
-                }}
-                className="text-red-500 hover:text-red-500"
-              >
-                Not Satisfied
-              </Button>
-            </div>
+                <FormField
+                  control={f1Form.control}
+                  name="tpDocs"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="TP Docs"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
+                  name="fpDocs"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="FP Docs"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
+                  name="tpPages"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="TP Pages"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
+                  name="fpPages"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="w-28"
+                          type="number"
+                          placeholder="FP Pages"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={f1Form.control}
+                  name="feedback"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Feedback" />
+                          </SelectTrigger>
+                          <SelectContent className="border-border">
+                            <SelectItem value="Very Satisfied">
+                              Very Satisfied
+                            </SelectItem>
+                            <SelectItem value="Satisfied">Satisfied</SelectItem>
+                            <SelectItem value="Not Satisfied">
+                              Not Satisfied
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button variant="outline" type="submit">
+                  Record
+                </Button>
+              </form>
+            </Form>
           )}
         </div>
       </div>

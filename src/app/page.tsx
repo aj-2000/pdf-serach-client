@@ -4,7 +4,6 @@ import { formSchema } from "@/components/index-config-form";
 import Body from "@/components/layout/body";
 import Header from "@/components/layout/header";
 import Sidebar from "@/components/layout/sidebar";
-import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
