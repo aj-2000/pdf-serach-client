@@ -35,9 +35,9 @@ const calculateFeedbackData = (data: any) => {
   });
 
   const percentages = {
+    "Very Satisfied": (feedbackCounts["Very Satisfied"] / totalFeedbacks) * 100,
     Satisfied: (feedbackCounts["Satisfied"] / totalFeedbacks) * 100,
     "Not Satisfied": (feedbackCounts["Not Satisfied"] / totalFeedbacks) * 100,
-    "Very Satisfied": (feedbackCounts["Very Satisfied"] / totalFeedbacks) * 100,
   };
 
   return {
@@ -65,20 +65,20 @@ const groupByMode = (data: any): Record<string, any[]> => {
 };
 const getPieData = (percentages: number[]) => {
   return {
-    labels: ["Satified", "Not Satisfied", "Very Satisfied"],
+    labels: ["Very Satisfied", "Satified", "Not Satisfied"],
     datasets: [
       {
         label: "Feedback",
         data: percentages,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
+          "rgba(34, 197, 94, 0.2)",
+          "rgba(234, 179, 8, 0.2)",
+          "rgba(239, 68, 68, 0.2)",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
+          "rgba(34, 197, 94, 1)",
+          "rgba(234, 179, 8, 1)",
+          "rgba(239, 68, 68, 1)",
         ],
         borderWidth: 1,
       },

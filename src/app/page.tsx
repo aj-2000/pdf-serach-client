@@ -53,7 +53,7 @@ export default function Home() {
             onClickQueryButton={onClickQueryButton}
           />
         </div>
-        <div className="h-[calc(100vh-210px)]">
+        <div className="h-[calc(100vh-210px)] rounded-lg px-2 py-3 border border-border overflow-auto no-scrollbar">
           <Body queryResults={queryResults} />
         </div>
       </div>

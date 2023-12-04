@@ -142,7 +142,7 @@ export function IndexConfigForm({
           control={form.control}
           name="updateIndex"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between  bg-card rounded-lg p-3 shadow-sm">
+            <FormItem className="flex flex-row items-center justify-between border border-border rounded-lg p-3 shadow-sm">
               <div className="space-y-0.5">
                 <FormLabel>Update index</FormLabel>
                 <FormDescription>
@@ -161,7 +161,11 @@ export function IndexConfigForm({
           )}
         />
 
-        <Button disabled={status === "in_progress"} type="submit">
+        <Button
+          variant="outline"
+          disabled={status === "in_progress"}
+          type="submit"
+        >
           {status === "in_progress" ? "Building" : "Build"}
         </Button>
       </form>

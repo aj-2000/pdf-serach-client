@@ -33,6 +33,8 @@ export const formSchema = z.object({
     required_error: "Query can not be empty.",
   }),
 });
+import { SunIcon, MoonIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Header({
   onClickQueryButton,
@@ -50,6 +52,7 @@ export default function Header({
       query: undefined,
     },
   });
+  const { setTheme, theme } = useTheme();
   const { query_time } = queryResults;
   const [isRecorded, setIsRecorded] = useState<boolean>(false);
   const [testData, setTestData] = useLocalStorageState("test-data", []);
@@ -74,7 +77,7 @@ export default function Header({
           <p className="font-thin text-4xl text-primary rounded-lg">
             PDF Search Engine
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -124,9 +127,24 @@ export default function Header({
                   )}
                 />
 
-                <Button type="submit">Query</Button>
+                <Button variant="outline" type="submit">
+                  Query
+                </Button>
               </form>
             </Form>
+            <Button
+              onClick={() => {
+                theme === "light" ? setTheme("dark") : setTheme("light");
+              }}
+              size="icon"
+              variant="outline"
+            >
+              {theme === "light" ? (
+                <MoonIcon className="w-4 h-4" />
+              ) : (
+                <SunIcon className="w-4 h-4" />
+              )}
+            </Button>
           </div>
         </div>
         <div className="flex justify-between">
@@ -137,8 +155,8 @@ export default function Header({
           ) : null}
           {isRecorded || queryResults.query_id === undefined ? (
             <div className="w-full flex justify-between gap-2 items-center">
-              <p className="font-mono text-sm font-bold bg-card border border-border text-primary rounded-lg h-10 px-4 py-2">
-                Recorded - {testData?.length}
+              <p className="font-mono text-sm  text-primary rounded-lg h-10 px-4 py-2 border border-input bg-background">
+                {testData?.length} feedbacks recorded
               </p>
               <div className="flex gap-2">
                 <TestVisualizer testData={testData} />
@@ -147,7 +165,8 @@ export default function Header({
             </div>
           ) : (
             <div className="flex gap-2">
-              <button
+              <Button
+                variant="outline"
                 onClick={() => {
                   addTestCase({
                     id: queryResults.query_id,
@@ -159,11 +178,12 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-border text-green-500 rounded-lg h-10 px-4 py-2"
+                className="text-green-500 hover:text-green-500"
               >
                 Very Satisfied
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
                 onClick={() => {
                   addTestCase({
                     id: queryResults.query_id,
@@ -175,11 +195,12 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-border text-yellow-500 rounded-lg h-10 px-4 py-2"
+                className="text-yellow-500 hover:text-yellow-500"
               >
                 Satisfied
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
                 onClick={() => {
                   addTestCase({
                     id: queryResults.query_id,
@@ -191,10 +212,10 @@ export default function Header({
                     index: queryResults.index,
                   });
                 }}
-                className="font-mono text-sm font-bold bg-card border border-border text-red-500 rounded-lg h-10 px-4 py-2"
+                className="text-red-500 hover:text-red-500"
               >
                 Not Satisfied
-              </button>
+              </Button>
             </div>
           )}
         </div>

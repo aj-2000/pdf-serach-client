@@ -43,7 +43,7 @@ Sidebar.Section = function SidebarSection({
   title: string;
 }) {
   return (
-    <div className="flex flex-col gap-4 py-4 px-2">
+    <div className="flex flex-col gap-4 py-3 px-2">
       <span className="text-primary font-bold text-sm">{title}</span>
       <div className="flex flex-col gap-2 items-center">{children}</div>
     </div>

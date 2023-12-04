@@ -65,9 +65,7 @@ export default function ResultTile({
               </span>
             </p>
           </CardTitle>
-          <CardDescription className="text-xs text-muted-foreground">
-            {path}
-          </CardDescription>
+          <CardDescription>{path}</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">
           <div className="flex h-5 items-center space-x-4 text-sm">
