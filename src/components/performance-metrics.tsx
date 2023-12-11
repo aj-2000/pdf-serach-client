@@ -10,10 +10,8 @@ import {
 import { GaugeCircleIcon } from "lucide-react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMemo } from "react";
+
 function calculateAverageMetrics(feedbacks: any[]) {
-  let totalDocs = 0;
-  let totalPages = 0;
   let totalRecallDocs = 0;
   let totalPrecisionDocs = 0;
   let totalF1ScoreDocs = 0;
@@ -57,8 +55,6 @@ function calculateAverageMetrics(feedbacks: any[]) {
       falseNegativesPages
     );
 
-    totalDocs++;
-    totalPages++;
     totalRecallDocs += docsMetrics.recall;
     totalPrecisionDocs += docsMetrics.precision;
     totalF1ScoreDocs += docsMetrics.f1Score;
@@ -67,17 +63,17 @@ function calculateAverageMetrics(feedbacks: any[]) {
     totalPrecisionPages += pagesMetrics.precision;
     totalF1ScorePages += pagesMetrics.f1Score;
   }
-
+  const len = feedbacks.length;
   const averageMetrics = {
     pages: {
-      recall: totalRecallPages / totalPages,
-      precision: totalPrecisionPages / totalPages,
-      f1Score: totalF1ScorePages / totalPages,
+      recall: totalRecallPages / len,
+      precision: totalPrecisionPages / len,
+      f1Score: totalF1ScorePages / len,
     },
     docs: {
-      recall: totalRecallDocs / totalDocs,
-      precision: totalPrecisionDocs / totalDocs,
-      f1Score: totalF1ScoreDocs / totalDocs,
+      recall: totalRecallDocs / len,
+      precision: totalPrecisionDocs / len,
+      f1Score: totalF1ScoreDocs / len,
     },
   };
 

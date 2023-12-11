@@ -40,21 +40,21 @@ export const f1FormSchema = z.object({
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "TP Docs must be a number" })
-      .positive("TP Docs must be positive")
+      .nonnegative("TP Docs cannot be negative")
       .optional()
   ),
   fpDocs: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "FP Docs must be a number" })
-      .positive("FP Docs must be positive")
+      .nonnegative("FP Docscannot be negative")
       .optional()
   ),
   fnDocs: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "FP Docs must be a number" })
-      .positive("FP Docs must be positive")
+      .nonnegative("FP Docs cannot be negative")
       .optional()
   ),
 
@@ -62,21 +62,21 @@ export const f1FormSchema = z.object({
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "TP Pages must be a number" })
-      .positive("TP Pages must be positive")
+      .nonnegative("TP Pages cannot be negative")
       .optional()
   ),
   fpPages: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "FP Pages must be a number" })
-      .positive("FP Pages must be positive")
+      .nonnegative("FP Pages cannot be negative")
       .optional()
   ),
   fnPages: z.preprocess(
     (args) => (args === "" ? undefined : args),
     z.coerce
       .number({ invalid_type_error: "FP Pages must be a number" })
-      .positive("FP Pages must be positive")
+      .nonnegative("FP Pages cannot be negative")
       .optional()
   ),
   feedback: z.string({
@@ -160,6 +160,7 @@ export default function Header({
               <SunIcon className="w-4 h-4" />
             )}
           </Button>
+
           <div className="flex gap-2">
             <Form {...form}>
               <form
